@@ -155,6 +155,11 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.05em;
 }
 
+.site-header__nav {
+  display: flex;
+  gap: var(--space-4);
+}
+
 .site-header__nav a {
   color: rgba(255,255,255,0.85);
   font-size: var(--font-size-sm);

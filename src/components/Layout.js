@@ -15,6 +15,7 @@ const Layout = ({ children, title, description }) => {
           </Link>
           <nav className="site-header__nav" aria-label="メインナビゲーション">
             <Link to="/">候補者一覧</Link>
+            <Link to="/about">About Us</Link>
           </nav>
         </div>
       </header>
