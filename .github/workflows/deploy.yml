@@ -1,0 +1,51 @@
+name: Build & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  # 手動トリガー (スプレッドシート更新後にボタン1つでデプロイ可能)
+  workflow_dispatch:
+  # 毎日午前6時(JST)に自動ビルド → スプレッドシートの更新を反映
+  schedule:
+    - cron: '0 21 * * *'  # UTC 21:00 = JST 翌6:00
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 依存関係をインストール
+        run: npm ci
+
+      - name: サービスアカウントキーを展開
+        # GitHub Secrets の GOOGLE_SERVICE_ACCOUNT_JSON を環境変数として渡す
+        # gatsby-node.js 内で process.env.GOOGLE_SERVICE_ACCOUNT_JSON を参照します
+        run: echo "Service account key will be read from environment variable"
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+
+      - name: Gatsby ビルド
+        run: npm run build -- --prefix-paths
+        env:
+          NODE_ENV: production
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+
+      - name: GitHub Pages へデプロイ
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          commit_message: "deploy: ${{ github.sha }} (${{ github.event_name }})"
