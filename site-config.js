@@ -12,7 +12,7 @@ module.exports = {
   // ===== Google スプレッドシート設定 =====
   // スプレッドシートID (URLの /d/ と /edit の間の文字列)
   // 例: https://docs.google.com/spreadsheets/d/【ここ】/edit
-  spreadsheetId: "YOUR_SPREADSHEET_ID_HERE",
+  spreadsheetId: "1SzMWS7C4YL94G66MRMXiiZMxQL6nYCCaajJAa1NiMwQ",
 
   // シート名 (デフォルトは "シート1" または "Sheet1")
   sheetName: "シート1",
@@ -20,7 +20,7 @@ module.exports = {
   // ===== 認証方式 =====
   // "service_account" : Google Cloud サービスアカウント (非公開スプレッドシート向け)
   // "public_csv"      : 公開スプレッドシートをCSVで直接取得 (認証不要)
-  authMode: "service_account",
+  authMode: "public_csv",
 
   // サービスアカウントのキーファイルパス
   // ローカル開発時: credentials/service-account.json に配置
@@ -30,16 +30,19 @@ module.exports = {
   // ===== スプレッドシートの列マッピング =====
   // 実際のスプレッドシートの1行目の列名 (ヘッダー行) に合わせてください
   columns: {
-    id: "ID",                    // 候補者ID (なければ自動生成)
-    name: "候補者名",
-    electionType: "選挙種類",    // 区長選挙、区議補欠選挙など
-    district: "選挙区",
-    party: "政党",
-    age: "年齢",
-    profile: "プロフィール",
-    imageUrl: "写真URL",         // 候補者写真のURL (任意)
-    website: "ウェブサイト",     // 候補者サイトURL (任意)
-    twitter: "Twitter/X",        // SNSアカウント (任意)
+    id: "ID",
+    name: "お名前",
+    electionType: "立候補予定なのはどちらですか？",
+    district: "選挙区", // シートにない場合は空欄になります
+    party: "所属政党・推薦",
+    age: "年齢", // シートにない場合は空欄になります
+    profile: "自由記述",
+    imageUrl: "顔写真URL",
+    website: "公式ウェブサイト",
+    twitter: "X",
+    sns: "公式SNS",
+    line: "LINE",
+    youtube: "Youtube",
   },
 
   // ===== アンケート質問一覧 =====
@@ -47,9 +50,13 @@ module.exports = {
   // label    : サイトに表示する質問文
   // column   : スプレッドシートの列名 (ヘッダー行の文字列)
   questions: [
-    { key: "Q1", label: "質問1のタイトル", column: "Q1" },
-    { key: "Q2", label: "質問2のタイトル", column: "Q2" },
-    // 必要に応じて追加してください
+    { key: "Q1", label: "子育て世代へアピールしたいことは何ですか？", column: "質問１. 子育て世代へアピールしたいことは何ですか？" },
+    { key: "Q2", label: "ご自身が小学生や中学生の頃、どこで何をして遊んでいましたか？", column: "質問２．ご自身が小学生や中学生の頃、どこで何をして遊んでいましたか？" },
+    { key: "Q3", label: "子育て支援で、何に一番力を入れたいですか？", column: "質問３．子育て支援で、何に一番力を入れたいですか？" },
+    { key: "Q4_num", label: "お答えいただける質問番号", column: "お答えいただける質問番号" },
+    { key: "Q4_content", label: "質問内容", column: "質問内容" },
+    { key: "Q4_answer", label: "選択した質問に対する回答", column: "選択した質問に対する回答" },
+    { key: "additional_url", label: "追加回答URL", column: "追加回答URL" },
   ],
 
   // ===== フィルタリング設定 =====

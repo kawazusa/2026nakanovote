@@ -14,6 +14,9 @@ const CandidatePage = ({ pageContext }) => {
     imageUrl,
     website,
     twitter,
+    sns,
+    line,
+    youtube,
     answers,
   } = candidate;
 
@@ -75,7 +78,7 @@ const CandidatePage = ({ pageContext }) => {
                 </p>
               )}
 
-              {(website || twitter) && (
+              {(website || twitter || sns || line || youtube) && (
                 <div className="candidate-profile-card__links">
                   {website && (
                     <a
@@ -86,6 +89,17 @@ const CandidatePage = ({ pageContext }) => {
                       aria-label={`${name} の公式ウェブサイト（新しいタブで開く）`}
                     >
                       🌐 公式サイト
+                    </a>
+                  )}
+                  {sns && (
+                    <a
+                      href={sns}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--outline"
+                      aria-label={`${name} の公式SNS（新しいタブで開く）`}
+                    >
+                      📱 公式SNS
                     </a>
                   )}
                   {twitter && (
@@ -101,6 +115,28 @@ const CandidatePage = ({ pageContext }) => {
                       aria-label={`${name} の Twitter/X（新しいタブで開く）`}
                     >
                       𝕏 Twitter/X
+                    </a>
+                  )}
+                  {line && (
+                    <a
+                      href={line}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--outline"
+                      aria-label={`${name} の LINE（新しいタブで開く）`}
+                    >
+                      💬 LINE
+                    </a>
+                  )}
+                  {youtube && (
+                    <a
+                      href={youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--outline"
+                      aria-label={`${name} の YouTube（新しいタブで開く）`}
+                    >
+                      ▶️ YouTube
                     </a>
                   )}
                 </div>

@@ -14,8 +14,9 @@ const Layout = ({ children, title, description }) => {
             <span>候補者アンケート結果</span>
           </Link>
           <nav className="site-header__nav" aria-label="メインナビゲーション">
-            <Link to="/">候補者一覧</Link>
-            <Link to="/about">About Us</Link>
+            <Link to="/" activeClassName="site-header__link--active">候補者一覧</Link>
+            <Link to="/compare" activeClassName="site-header__link--active">質問ごとに比較する</Link>
+            <Link to="/about" activeClassName="site-header__link--active">About Us</Link>
           </nav>
         </div>
       </header>
@@ -26,10 +27,7 @@ const Layout = ({ children, title, description }) => {
 
       <footer className="site-footer">
         <div className="container">
-          <p>
-            © 2026 なかの2026 候補者アンケート &nbsp;|&nbsp;{" "}
-            このサイトは選挙に関する情報を中立的に提供することを目的としています。
-          </p>
+          <p>© 2026 子育て環境向上委員会@中野</p>
         </div>
       </footer>
     </>
@@ -53,10 +51,7 @@ export const PageHead = ({ title, description }) => {
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
       <meta property="og:type" content="website" />
-      <link
-        rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>"
-      />
+      <link rel="icon" href="/images/favicon.png" />
     </>
   );
 };

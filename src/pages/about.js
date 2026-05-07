@@ -8,14 +8,9 @@ const AboutPage = () => {
       description="子育て環境向上委員会@中野 の活動内容や過去のアンケート結果について。"
     >
       <section className="hero" aria-labelledby="hero-title">
-        <div className="container">
-          <h1 className="hero__title" id="hero-title">
-            About us
-          </h1>
-          <p className="hero__subtitle">
-            子育て環境向上委員会@中野 について
-          </p>
-        </div>
+        <h1 className="visually-hidden" id="hero-title">
+          About us
+        </h1>
       </section>
 
       <section className="about-section">
@@ -29,15 +24,16 @@ const AboutPage = () => {
             </p>
             <p style={{ marginBottom: "1rem", lineHeight: "1.8" }}>
               私たちは「子育て世代、子ども達の声を届けよう！」をモットーに活動している団体です。<br />
-              選挙アンケート、要望書提出、データ可視化などしています。
+
             </p>
             <p style={{ marginBottom: "2rem", lineHeight: "1.8" }}>
               2018年発足。子育てに悩み、問題意識を持った母親たちが出会い、みんなで区長候補に会いにいったことがきっかけで団体を立ち上げました。<br />
-              以後、超党派で活動しています。
+              そこで出会った母親たちの支持政党がバラバラであったことから、超党派で活動する方針となりました。<br />
+              主な活動として、選挙アンケート、要望書提出、データ可視化などをしています。
             </p>
 
-            <h3 style={{ fontSize: "1.25rem", color: "var(--color-primary-dark)", marginTop: "2rem", marginBottom: "1rem" }}>
-              👉 立候補予定者への公開アンケート
+            <h3 style={{ fontSize: "1.2rem", color: "var(--color-primary-dark)", background: "var(--color-primary-light)", padding: "0.5rem 1rem", borderLeft: "4px solid var(--color-primary)", borderRadius: "4px", marginTop: "2rem", marginBottom: "1rem" }}>
+              立候補予定者への公開アンケート
             </h3>
             <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", marginBottom: "2rem", lineHeight: "1.6" }}>
               <li><a href="https://script.google.com/macros/s/AKfycbxqWug6Hza9NWn3HW2TuCPWwntXG9oWdozsfA9Hab2exIgkIAfkR3AXV5b_-y990YJheg/exec" target="_blank" rel="noopener noreferrer">2025年 都議選 公開アンケート</a></li>
@@ -48,8 +44,8 @@ const AboutPage = () => {
               <li><a href="https://nakanokosodate.localinfo.jp/posts/4287641" target="_blank" rel="noopener noreferrer">2018年 中野区長選挙 公開アンケート</a></li>
             </ul>
 
-            <h3 style={{ fontSize: "1.25rem", color: "var(--color-primary-dark)", marginTop: "2rem", marginBottom: "1rem" }}>
-              👉 市民向けアンケート
+            <h3 style={{ fontSize: "1.2rem", color: "var(--color-primary-dark)", background: "var(--color-primary-light)", padding: "0.5rem 1rem", borderLeft: "4px solid var(--color-primary)", borderRadius: "4px", marginTop: "2rem", marginBottom: "1rem" }}>
+              市民向けアンケート
             </h3>
             <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", marginBottom: "2rem", lineHeight: "1.6" }}>
               <li><a href="https://nakanokosodate.localinfo.jp/posts/53996722" target="_blank" rel="noopener noreferrer">2023年 【結果報告書】「未来の都議さんに聞いてみたいこと、 ありますか?」</a></li>
@@ -63,8 +59,8 @@ const AboutPage = () => {
               <li><a href="https://nakanokosodate.localinfo.jp/posts/4038203?categoryIds=1154770" target="_blank" rel="noopener noreferrer">2018年　中野区保活実態調査【2018年度入園】結果報告</a></li>
             </ul>
 
-            <h3 style={{ fontSize: "1.25rem", color: "var(--color-primary-dark)", marginTop: "2rem", marginBottom: "1rem" }}>
-              👉 データ可視化
+            <h3 style={{ fontSize: "1.2rem", color: "var(--color-primary-dark)", background: "var(--color-primary-light)", padding: "0.5rem 1rem", borderLeft: "4px solid var(--color-primary)", borderRadius: "4px", marginTop: "2rem", marginBottom: "1rem" }}>
+              データ可視化
             </h3>
             <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", marginBottom: "2rem", lineHeight: "1.6" }}>
               <li><a href="https://nakanokosodate.localinfo.jp/posts/51760873" target="_blank" rel="noopener noreferrer">【続】中野区オープンデータの可視化</a></li>
@@ -79,8 +75,8 @@ const AboutPage = () => {
               <li><a href="https://nakanokosodate.localinfo.jp/posts/4420164?categoryIds=2554884" target="_blank" rel="noopener noreferrer">「少子化？」中野区では子どもが増えている！</a></li>
             </ul>
 
-            <h3 style={{ fontSize: "1.25rem", color: "var(--color-primary-dark)", marginTop: "2rem", marginBottom: "1rem" }}>
-              👉 CONTACT
+            <h3 style={{ fontSize: "1.2rem", color: "var(--color-primary-dark)", background: "var(--color-primary-light)", padding: "0.5rem 1rem", borderLeft: "4px solid var(--color-primary)", borderRadius: "4px", marginTop: "2rem", marginBottom: "1rem" }}>
+              CONTACT
             </h3>
             <p style={{ marginBottom: "1rem" }}>
               お問い合わせは、以下のいずれかでお願いします。<br />

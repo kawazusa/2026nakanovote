@@ -14,8 +14,11 @@ export function getAnswerClass(value) {
 
 /** 候補者カード */
 const CandidateCard = ({ candidate }) => {
-  const { slug, name, district, party, age, profile, imageUrl, answers } = candidate;
+  const { slug, name, district, party, age, imageUrl, answers } = candidate;
   const initial = name ? name[0] : "?";
+
+  // 質問1の回答を取得
+  const q1Answer = answers?.find((a) => a.key === "Q1")?.value;
 
   return (
     <Link
@@ -23,7 +26,13 @@ const CandidateCard = ({ candidate }) => {
       className="candidate-card"
       aria-label={`${name} の詳細を見る`}
     >
-      <div className="candidate-card__header">
+      {q1Answer && (
+        <div className="candidate-card__speech-bubble">
+          {q1Answer}
+        </div>
+      )}
+      
+      <div className="candidate-card__avatar-wrapper">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -39,45 +48,14 @@ const CandidateCard = ({ candidate }) => {
             {initial}
           </div>
         )}
-        <div className="candidate-card__info">
-          <h2 className="candidate-card__name">{name}</h2>
-          <div className="candidate-card__meta">
-            {candidate.electionType && <span className="badge badge--election">{candidate.electionType}</span>}
-            {party && <span className="badge badge--party">{party}</span>}
-            {district && <span className="badge badge--district">{district}</span>}
-            {age && <span className="badge badge--age">{age}歳</span>}
-          </div>
-        </div>
       </div>
 
-      {(profile || answers?.length > 0) && (
-        <div className="candidate-card__body">
-          {profile && (
-            <p className="candidate-card__profile">{profile}</p>
-          )}
-          {answers && answers.length > 0 && (
-            <div
-              className="candidate-card__answers-preview"
-              aria-label="回答状況プレビュー"
-              title={answers.map((a) => `${a.label}: ${a.value || "未回答"}`).join(" / ")}
-            >
-              {answers.map((answer) => {
-                const cls = getAnswerClass(answer.value);
-                return (
-                  <span
-                    key={answer.key}
-                    className={`answer-dot answer-dot--${cls}`}
-                    aria-hidden="true"
-                  />
-                );
-              })}
-            </div>
-          )}
+      <div className="candidate-card__info">
+        <h2 className="candidate-card__name">{name}</h2>
+        <div className="candidate-card__meta">
+          {party && <span className="badge badge--party">{party}</span>}
+          {candidate.electionType && <span className="badge badge--election">{candidate.electionType}</span>}
         </div>
-      )}
-
-      <div className="candidate-card__footer">
-        詳細を見る →
       </div>
     </Link>
   );

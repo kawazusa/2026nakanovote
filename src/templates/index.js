@@ -1,42 +1,22 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import Layout, { PageHead } from "../components/Layout";
 import CandidateCard from "../components/CandidateCard";
-import FilterBar from "../components/FilterBar";
 
 const IndexPage = ({ pageContext }) => {
   const rawCandidates = pageContext?.candidates;
   // pageContext.candidates は通常変更されないためメモ化
   const candidates = useMemo(() => rawCandidates || [], [rawCandidates]);
 
-  const [selectedElectionType, setSelectedElectionType] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedParty, setSelectedParty] = useState("");
-
-  // ユニークな選挙種類・選挙区・政党リスト
-  const electionTypes = useMemo(
-    () => [...new Set(candidates.map((c) => c.electionType).filter(Boolean))].sort(),
-    [candidates]
-  );
-
-  const districts = useMemo(
-    () => [...new Set(candidates.map((c) => c.district).filter(Boolean))].sort(),
-    [candidates]
-  );
-
-  const parties = useMemo(
-    () => [...new Set(candidates.map((c) => c.party).filter(Boolean))].sort(),
-    [candidates]
-  );
-
-  // フィルタリング
-  const filteredCandidates = useMemo(() => {
-    return candidates.filter((c) => {
-      if (selectedElectionType && c.electionType !== selectedElectionType) return false;
-      if (selectedDistrict && c.district !== selectedDistrict) return false;
-      if (selectedParty && c.party !== selectedParty) return false;
-      return true;
+  // 選挙種類でグループ化
+  const groupedCandidates = useMemo(() => {
+    const groups = {};
+    candidates.forEach((c) => {
+      const type = c.electionType || "その他";
+      if (!groups[type]) groups[type] = [];
+      groups[type].push(c);
     });
-  }, [candidates, selectedElectionType, selectedDistrict, selectedParty]);
+    return groups;
+  }, [candidates]);
 
   return (
     <Layout
@@ -45,83 +25,68 @@ const IndexPage = ({ pageContext }) => {
     >
       {/* ヒーローセクション */}
       <section className="hero" aria-labelledby="hero-title">
-        <div className="container">
-          <h1 className="hero__title" id="hero-title">
-            🗳️ なかの2026<br />候補者アンケート結果
-          </h1>
-          <p className="hero__subtitle">
-            2026年の選挙に立候補する候補者へのアンケートをまとめています。<br />
-            政策への考え方を比較して、投票の参考にしてください。
-          </p>
-          {candidates.length > 0 && (
-            <div className="hero__stats" aria-label="統計情報">
-              <div className="hero__stat">
-                <span className="hero__stat-value">{candidates.length}</span>
-                <span className="hero__stat-label">候補者数</span>
-              </div>
-              {parties.length > 0 && (
-                <div className="hero__stat">
-                  <span className="hero__stat-value">{parties.length}</span>
-                  <span className="hero__stat-label">政党数</span>
-                </div>
-              )}
-              {electionTypes.length > 0 && (
-                <div className="hero__stat">
-                  <span className="hero__stat-value">{electionTypes.length}</span>
-                  <span className="hero__stat-label">選挙数</span>
-                </div>
-              )}
-              {districts.length > 0 && (
-                <div className="hero__stat">
-                  <span className="hero__stat-value">{districts.length}</span>
-                  <span className="hero__stat-label">選挙区数</span>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+        <h1 className="visually-hidden" id="hero-title">
+          なかの2026 候補者アンケート結果
+        </h1>
       </section>
 
-      {/* フィルターバー */}
-      <FilterBar
-        electionTypes={electionTypes}
-        districts={districts}
-        parties={parties}
-        selectedElectionType={selectedElectionType}
-        selectedDistrict={selectedDistrict}
-        selectedParty={selectedParty}
-        onElectionTypeChange={setSelectedElectionType}
-        onDistrictChange={setSelectedDistrict}
-        onPartyChange={setSelectedParty}
-        totalCount={candidates.length}
-        filteredCount={filteredCandidates.length}
-      />
+      <section className="intro-section">
+        <div className="container">
+          <p>
+            こんにちは。子育て環境向上委員会@中野 です。<br />
+            私たちは、子育て世代の声を区政や議員の皆様へ届ける活動などをしている団体で、主に子育て中の母親で構成され、超党派で活動しています。<br />
+            当団体では、1人でも多くの有権者に区政へ関心を持っていただくこと、また子育て世代の有権者がどのようなことに関心を持っているのかを立候補予定者の皆様に知っていただくことを目的に、公開アンケートを実施しました。
+          </p>
+          <h2 style={{
+            marginTop: '2.5rem',
+            fontSize: '1.3rem',
+            fontWeight: 'bold',
+            background: 'var(--color-primary-light)',
+            padding: '1rem 1.5rem',
+            borderLeft: '6px solid var(--color-primary)',
+            borderRadius: '0 8px 8px 0'
+          }}>
+            質問１. 子育て世代へアピールしたいことは何ですか？
+            <span style={{ fontSize: '0.85rem', fontWeight: 'normal', color: 'var(--color-text-muted)', display: 'inline-block', marginLeft: '0.5rem' }}>
+              （回答は２０文字以内）
+            </span>
+          </h2>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#64748b' }}>
+            ※並び順は、左から右にむかって、候補予定者の多い政党順、政党所属候補者、無所属となっており、上から当選回数順となっております。
+          </p>
+        </div>
+      </section>
 
       {/* 候補者グリッド */}
       <section className="candidates-section" aria-labelledby="candidates-heading">
         <div className="container">
           <h2 id="candidates-heading" className="visually-hidden">候補者一覧</h2>
 
-          {filteredCandidates.length > 0 ? (
-            <div className="candidates-grid">
-              {filteredCandidates.map((candidate) => (
-                <CandidateCard key={candidate.id} candidate={candidate} />
-              ))}
+          {candidates.length > 0 ? (
+            <div className="candidates-groups">
+              {Object.entries(groupedCandidates).map(([type, candidatesInGroup]) => {
+                // 4人なら4列、5人なら5列になるようなクラスを付与
+                const cols = candidatesInGroup.length === 5 ? 5 : 4;
+                const gridClass = `candidates-grid candidates-grid--${cols}cols`;
+
+                return (
+                  <div key={type} className="candidate-group">
+                    <h3 className="candidate-group__title">{type}</h3>
+                    <div className={gridClass}>
+                      {candidatesInGroup.map((candidate) => (
+                        <CandidateCard key={candidate.id} candidate={candidate} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ) : candidates.length === 0 ? (
+          ) : (
             <div className="empty-state">
               <div className="empty-state__icon">📋</div>
               <h3 className="empty-state__title">データが見つかりません</h3>
               <p className="empty-state__body">
                 <code>site-config.js</code> の <code>spreadsheetId</code> を設定してください。
-              </p>
-            </div>
-          ) : (
-            <div className="empty-state">
-              <div className="empty-state__icon">🔍</div>
-              <h3 className="empty-state__title">該当する候補者がいません</h3>
-              <p className="empty-state__body">
-                フィルター条件を変更してみてください。
               </p>
             </div>
           )}

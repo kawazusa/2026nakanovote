@@ -192,7 +192,7 @@ exports.createPages = async ({ actions }) => {
         id,
         slug,
         name,
-        electionType: (row[columns.electionType] || "").trim(),
+        electionType: (row[columns.electionType] || "").trim().replace(/^区長$/, "区長立候補予定者").replace(/^区議$/, "区議立候補予定者"),
         district: (row[columns.district] || "").trim(),
         party: (row[columns.party] || "").trim(),
         age: (row[columns.age] || "").trim(),
@@ -200,6 +200,9 @@ exports.createPages = async ({ actions }) => {
         imageUrl: (row[columns.imageUrl] || "").trim(),
         website: (row[columns.website] || "").trim(),
         twitter: (row[columns.twitter] || "").trim(),
+        sns: (row[columns.sns] || "").trim(),
+        line: (row[columns.line] || "").trim(),
+        youtube: (row[columns.youtube] || "").trim(),
         answers,
       };
     });
@@ -218,6 +221,13 @@ exports.createPages = async ({ actions }) => {
     path: "/",
     component: require.resolve("./src/templates/index.js"),
     context: { candidates },
+  });
+
+  // 比較ページ
+  createPage({
+    path: "/compare",
+    component: require.resolve("./src/templates/compare.js"),
+    context: { candidates, questions: config.questions },
   });
 };
 
