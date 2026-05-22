@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, withPrefix } from "gatsby";
 import Layout, { PageHead } from "../components/Layout";
 import QuestionAnswer from "../components/QuestionAnswer";
 
@@ -40,7 +40,7 @@ const CandidatePage = ({ pageContext }) => {
             <div className="candidate-profile-card__hero">
               {imageUrl ? (
                 <img
-                  src={imageUrl}
+                  src={imageUrl?.startsWith('/') ? withPrefix(imageUrl) : imageUrl}
                   alt={`${name} の写真`}
                   className="candidate-profile-card__avatar"
                 />

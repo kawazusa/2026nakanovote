@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withPrefix } from "gatsby";
 import Layout, { PageHead } from "../components/Layout";
 
 const ComparePage = ({ pageContext }) => {
@@ -49,7 +50,7 @@ const ComparePage = ({ pageContext }) => {
               <div key={candidate.id} className="compare-card">
                 <div className="compare-card__avatar-wrapper">
                   {candidate.imageUrl ? (
-                    <img src={candidate.imageUrl} alt={candidate.name} className="compare-card__avatar" />
+                    <img src={candidate.imageUrl?.startsWith('/') ? withPrefix(candidate.imageUrl) : candidate.imageUrl} alt={candidate.name} className="compare-card__avatar" />
                   ) : (
                     <div className="compare-card__avatar-placeholder">{candidate.name[0]}</div>
                   )}

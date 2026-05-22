@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, withPrefix } from "gatsby";
 
 /** 回答値から表示用クラスを返す */
 export function getAnswerClass(value) {
@@ -35,7 +35,7 @@ const CandidateCard = ({ candidate }) => {
       <div className="candidate-card__avatar-wrapper">
         {imageUrl ? (
           <img
-            src={imageUrl}
+            src={imageUrl?.startsWith('/') ? withPrefix(imageUrl) : imageUrl}
             alt={`${name} の写真`}
             className="candidate-card__avatar"
             loading="lazy"
