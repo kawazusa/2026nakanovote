@@ -21,6 +21,8 @@ const CandidatePage = ({ pageContext }) => {
   } = candidate;
 
   const initial = name ? name[0] : "?";
+  const q1Answer = answers?.find((a) => a.key === "Q1")?.value;
+  const displayText = q1Answer || profile;
 
   return (
     <Layout
@@ -72,9 +74,9 @@ const CandidatePage = ({ pageContext }) => {
             </div>
 
             <div className="candidate-profile-card__body">
-              {profile && (
+              {displayText && (
                 <p className="candidate-profile-card__profile-text">
-                  {profile}
+                  {displayText}
                 </p>
               )}
 
