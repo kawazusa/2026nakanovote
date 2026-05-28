@@ -51,9 +51,6 @@ const IndexPage = ({ pageContext }) => {
               （回答は２０文字以内）
             </span>
           </h2>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#64748b' }}>
-            ※並び順は、左から右にむかって、候補予定者の多い政党順、政党所属候補者、無所属となっており、上から当選回数順となっております。
-          </p>
         </div>
       </section>
 
@@ -90,7 +87,7 @@ const IndexPage = ({ pageContext }) => {
           )}
 
           <p style={{ marginTop: '2rem', fontSize: '0.8rem', color: '#475569', textAlign: 'left' }}>
-            ※並び順は、左から右にむかって、議員としての当選回数が多い順　＞　立候補回数が多い順　となっております。
+            ※並び順は、左から右にむかって、議員としての当選回数が多い順　＞　立候補回数が多い順　＞　アンケートに答えた順　となっております。
           </p>
         </div>
       </section>

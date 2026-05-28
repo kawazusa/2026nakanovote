@@ -17,6 +17,9 @@ const CandidatePage = ({ pageContext }) => {
     sns,
     line,
     youtube,
+    facebook,
+    instagram,
+    tiktok,
     answers,
   } = candidate;
 
@@ -80,7 +83,7 @@ const CandidatePage = ({ pageContext }) => {
                 </p>
               )}
 
-              {(website || twitter || sns || line || youtube) && (
+              {(website || twitter || facebook || instagram || tiktok || sns || line || youtube) && (
                 <div className="candidate-profile-card__links">
                   {website && (
                     <a
@@ -91,6 +94,39 @@ const CandidatePage = ({ pageContext }) => {
                       aria-label={`${name} の公式ウェブサイト（新しいタブで開く）`}
                     >
                       🌐 公式サイト
+                    </a>
+                  )}
+                  {facebook && (
+                    <a
+                      href={facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--outline"
+                      aria-label={`${name} の Facebook（新しいタブで開く）`}
+                    >
+                      📘 Facebook
+                    </a>
+                  )}
+                  {instagram && (
+                    <a
+                      href={instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--outline"
+                      aria-label={`${name} の Instagram（新しいタブで開く）`}
+                    >
+                      📷 Instagram
+                    </a>
+                  )}
+                  {tiktok && (
+                    <a
+                      href={tiktok}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--outline"
+                      aria-label={`${name} の TikTok（新しいタブで開く）`}
+                    >
+                      🎵 TikTok
                     </a>
                   )}
                   {sns && (
