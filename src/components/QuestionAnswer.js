@@ -74,7 +74,7 @@ const AdditionalAnswersFetcher = ({ url }) => {
         const questionText = row[qKey];
         const answerText = row[aKey];
         
-        if (!questionText && !answerText) return null;
+        if (!questionText || !answerText || answerText.trim() === "") return null;
 
         return (
           <div key={index} style={{ marginBottom: "1.5rem", borderTop: index === 0 ? "1px dashed var(--color-border)" : "1px dashed var(--color-border)", paddingTop: "1.5rem" }}>
@@ -105,7 +105,7 @@ const QuestionAnswer = ({ answers }) => {
     );
   }
 
-  const normalAnswers = answers.filter(a => ["Q2", "Q3"].includes(a.key));
+  const normalAnswers = answers.filter(a => ["Q2", "Q3"].includes(a.key) && a.value && a.value.trim() !== "");
   const q4Num = answers.find(a => a.key === "Q4_num")?.value;
   const q4Content = answers.find(a => a.key === "Q4_content")?.value;
   const q4Answer = answers.find(a => a.key === "Q4_answer")?.value;
@@ -154,7 +154,7 @@ const QuestionAnswer = ({ answers }) => {
       })}
 
       {/* Q4 (有権者からの質問) */}
-      {(q4Num || q4Content || q4Answer) && (
+      {q4Answer && q4Answer.trim() !== "" && (
         <div style={{ padding: "var(--space-6) var(--space-8)", borderBottom: "1px solid var(--color-border)" }}>
           <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--color-primary)", marginBottom: "1rem", borderBottom: "1px dashed var(--color-border)", paddingBottom: "0.5rem" }}>
             質問４．有権者からの質問に一つお答えください

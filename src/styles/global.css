@@ -355,7 +355,7 @@ img {
 }
 
 .candidates-grid--5cols {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 /* ---------- 候補者カード ---------- */
@@ -812,7 +812,7 @@ img {
   .candidates-grid,
   .candidates-grid--4cols,
   .candidates-grid--5cols {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-2);
   }
 
@@ -858,6 +858,14 @@ img {
 
   .answers-section__header {
     padding: var(--space-4) var(--space-4);
+  }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  .candidates-grid,
+  .candidates-grid--4cols,
+  .candidates-grid--5cols {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

@@ -65,9 +65,7 @@ const IndexPage = ({ pageContext }) => {
           {candidates.length > 0 ? (
             <div className="candidates-groups">
               {Object.entries(groupedCandidates).map(([type, candidatesInGroup]) => {
-                // 4人なら4列、5人なら5列になるようなクラスを付与
-                const cols = candidatesInGroup.length === 5 ? 5 : 4;
-                const gridClass = `candidates-grid candidates-grid--${cols}cols`;
+                const gridClass = `candidates-grid candidates-grid--4cols`;
 
                 return (
                   <div key={type} className="candidate-group">
@@ -90,6 +88,10 @@ const IndexPage = ({ pageContext }) => {
               </p>
             </div>
           )}
+
+          <p style={{ marginTop: '2rem', fontSize: '0.8rem', color: '#475569', textAlign: 'left' }}>
+            ※並び順は、左から右にむかって、議員としての当選回数が多い順　＞　立候補回数が多い順　となっております。
+          </p>
         </div>
       </section>
     </Layout>
