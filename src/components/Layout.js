@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, withPrefix } from "gatsby";
 import "../styles/global.css";
 
 const Layout = ({ children, title, description }) => {
@@ -51,7 +51,7 @@ export const PageHead = ({ title, description }) => {
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
       <meta property="og:type" content="website" />
-      <link rel="icon" href="/images/favicon.png" />
+      <link rel="icon" href={withPrefix("/images/favicon.png")} />
     </>
   );
 };

@@ -214,7 +214,7 @@ img {
 
 /* ---------- ヒーローセクション ---------- */
 .hero {
-  background-image: url('/images/background.jpg');
+  background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center;
   height: 10vh;
@@ -908,7 +908,7 @@ img {
 
 /* ---------- 比較ページ ---------- */
 .compare-header {
-  background-image: url('/images/background.jpg');
+  background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center;
   padding: var(--space-8) var(--space-4);
