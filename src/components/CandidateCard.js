@@ -12,6 +12,27 @@ export function getAnswerClass(value) {
   return "other";
 }
 
+const formatQ1 = (text) => {
+  if (!text || text.length <= 10) return text;
+  
+  // 10文字目以降の連続する禁則文字（句読点や閉じ括弧）を含めて1行目にする
+  const match = text.slice(10).match(/^[。、！？』」】〉》\]）)}]+/);
+  const breakPoint = 10 + (match ? match[0].length : 0);
+  
+  if (breakPoint >= text.length) return text;
+
+  const line1 = text.slice(0, breakPoint);
+  const line2 = text.slice(breakPoint);
+  
+  return (
+    <>
+      {line1}
+      <br />
+      {line2}
+    </>
+  );
+};
+
 /** 候補者カード */
 const CandidateCard = ({ candidate }) => {
   const { slug, name, district, party, age, imageUrl, website, answers } = candidate;
@@ -29,7 +50,7 @@ const CandidateCard = ({ candidate }) => {
       >
         {q1Answer && (
           <div className="candidate-card__speech-bubble">
-            {q1Answer}
+            {formatQ1(q1Answer)}
           </div>
         )}
         
@@ -59,14 +80,14 @@ const CandidateCard = ({ candidate }) => {
         </div>
       </Link>
 
-      <div style={{ marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      <div style={{ marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem' }}>
         <Link
           to={`/candidates/${slug}/`}
           style={{
             display: 'inline-block',
             border: '1.5px solid var(--color-primary)',
             color: 'var(--color-primary)',
-            padding: '0.4rem 0.8rem',
+            padding: '0.4rem 1.2rem',
             borderRadius: 'var(--radius-full)',
             fontSize: '0.85rem',
             fontWeight: '600',
@@ -90,16 +111,15 @@ const CandidateCard = ({ candidate }) => {
             rel="noopener noreferrer"
             style={{
               display: 'inline-block',
-              color: 'var(--color-text-muted)',
+              color: '#475569',
               fontSize: '0.8rem',
-              textDecoration: 'underline',
-              marginTop: '0.2rem'
+              textDecoration: 'underline'
             }}
             onMouseOver={(e) => {
               e.target.style.color = 'var(--color-primary)';
             }}
             onMouseOut={(e) => {
-              e.target.style.color = 'var(--color-text-muted)';
+              e.target.style.color = '#475569';
             }}
           >
             公式ウェブサイト
