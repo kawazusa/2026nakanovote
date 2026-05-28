@@ -43,6 +43,9 @@ module.exports = {
     sns: "公式SNS",
     line: "LINE",
     youtube: "Youtube",
+    facebook: "Facebook",
+    instagram: "Instagram",
+    tiktok: "tiktok",
   },
 
   // ===== アンケート質問一覧 =====

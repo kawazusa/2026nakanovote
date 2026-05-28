@@ -203,6 +203,9 @@ exports.createPages = async ({ actions }) => {
         sns: (row[columns.sns] || "").trim(),
         line: (row[columns.line] || "").trim(),
         youtube: (row[columns.youtube] || "").trim(),
+        facebook: (row[columns.facebook] || "").trim(),
+        instagram: (row[columns.instagram] || "").trim(),
+        tiktok: (row[columns.tiktok] || "").trim(),
         answers,
       };
     });

@@ -388,7 +388,7 @@ img {
   color: var(--color-text);
   font-weight: 600;
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   width: 100%;
   box-shadow: var(--shadow-sm);
   word-break: break-all;
