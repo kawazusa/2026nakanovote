@@ -14,6 +14,7 @@ const AdditionalAnswersFetcher = ({ url }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (!url || !url.includes("docs.google.com/spreadsheets")) {
@@ -61,35 +62,79 @@ const AdditionalAnswersFetcher = ({ url }) => {
   if (!data || data.length === 0) return null;
 
   return (
-    <div style={{ padding: "var(--space-6) var(--space-8)" }}>
-      <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--color-text)", marginBottom: "1.5rem" }}>
-        その他の質問への回答
-      </h3>
-      {data.map((row, index) => {
-        const keys = Object.keys(row);
-        if (keys.length < 2) return null;
-        
-        const qKey = keys.find(k => k.includes("質問")) || keys[0];
-        const aKey = keys.find(k => k.includes("回答")) || keys[1] || keys[keys.length - 1];
-        const questionText = row[qKey];
-        const answerText = row[aKey];
-        
-        if (!questionText || !answerText || answerText.trim() === "") return null;
+    <div style={{ borderTop: "1px solid var(--color-border)" }}>
+      {/* アコーディオン ヘッダー */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          padding: "var(--space-6) var(--space-8)",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          textAlign: "left",
+        }}
+      >
+        <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--color-text)", margin: 0 }}>
+          その他の質問への回答
+          <span style={{ fontSize: "0.85rem", fontWeight: "400", color: "var(--color-text-muted)", marginLeft: "0.75rem" }}>
+            （{data.filter((row) => {
+              const keys = Object.keys(row);
+              const qKey = keys.find(k => k.includes("質問")) || keys[0];
+              const aKey = keys.find(k => k.includes("回答")) || keys[1] || keys[keys.length - 1];
+              return row[qKey] && row[aKey] && row[aKey].trim() !== "";
+            }).length}件）
+          </span>
+        </h3>
+        <span style={{
+          fontSize: "1rem",
+          color: "var(--color-primary)",
+          transition: "transform 0.25s ease",
+          transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+          display: "inline-block",
+        }}>
+          ▼
+        </span>
+      </button>
 
-        return (
-          <div key={index} style={{ marginBottom: "1.5rem", borderTop: index === 0 ? "1px dashed var(--color-border)" : "1px dashed var(--color-border)", paddingTop: "1.5rem" }}>
-            <div style={{ marginBottom: "0.5rem", fontSize: "1.1rem", fontWeight: "bold", color: "var(--color-primary)" }}>
-              質問番号: {index + 1}
-            </div>
-            <div style={{ background: "var(--color-surface-2)", padding: "1rem", borderRadius: "8px", marginBottom: "1rem", color: "var(--color-primary)", lineHeight: "1.6", fontSize: "0.95rem" }}>
-              {questionText}
-            </div>
-            <div style={{ fontSize: "1rem", lineHeight: "1.8", color: "var(--color-text)" }}>
-              <span style={{ fontWeight: 'bold' }}>回答:</span> {answerText}
-            </div>
-          </div>
-        );
-      })}
+      {/* アコーディオン コンテンツ */}
+      <div style={{
+        overflow: "hidden",
+        maxHeight: isOpen ? "9999px" : "0",
+        transition: "max-height 0.35s ease",
+      }}>
+        <div style={{ padding: "0 var(--space-8) var(--space-6)" }}>
+          {data.map((row, index) => {
+            const keys = Object.keys(row);
+            if (keys.length < 2) return null;
+            
+            const qKey = keys.find(k => k.includes("質問")) || keys[0];
+            const aKey = keys.find(k => k.includes("回答")) || keys[1] || keys[keys.length - 1];
+            const questionText = row[qKey];
+            const answerText = row[aKey];
+            
+            if (!questionText || !answerText || answerText.trim() === "") return null;
+
+            return (
+              <div key={index} style={{ marginBottom: "1.5rem", borderTop: "1px dashed var(--color-border)", paddingTop: "1.5rem" }}>
+                <div style={{ marginBottom: "0.5rem", fontSize: "1.1rem", fontWeight: "bold", color: "var(--color-primary)" }}>
+                  質問番号: {index + 1}
+                </div>
+                <div style={{ background: "var(--color-surface-2)", padding: "1rem", borderRadius: "8px", marginBottom: "1rem", color: "var(--color-primary)", lineHeight: "1.6", fontSize: "0.95rem" }}>
+                  {questionText}
+                </div>
+                <div style={{ fontSize: "1rem", lineHeight: "1.8", color: "var(--color-text)" }}>
+                  <span style={{ fontWeight: 'bold' }}>回答:</span> {answerText}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
