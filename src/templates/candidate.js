@@ -184,7 +184,7 @@ const CandidatePage = ({ pageContext }) => {
 
           {/* アンケート回答 */}
           <div className="animate-fade-in-up" style={{ animationDelay: "100ms" }}>
-            <QuestionAnswer answers={answers} />
+            <QuestionAnswer answers={answers} profile={profile} />
           </div>
 
         </div>

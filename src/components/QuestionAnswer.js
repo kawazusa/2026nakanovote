@@ -57,7 +57,7 @@ const AdditionalAnswersFetcher = ({ url }) => {
   }, [url]);
 
   if (loading) return <div style={{ padding: "2rem", color: "var(--color-text-muted)" }}>追加回答を読み込み中...</div>;
-  if (error) return <div style={{ padding: "2rem", color: "red" }}>{error}</div>;
+  if (error) return null;
   if (!data || data.length === 0) return null;
 
   return (
@@ -94,7 +94,7 @@ const AdditionalAnswersFetcher = ({ url }) => {
   );
 };
 
-const QuestionAnswer = ({ answers }) => {
+const QuestionAnswer = ({ answers, profile }) => {
   if (!answers || answers.length === 0) {
     return (
       <div className="answers-section">
@@ -182,6 +182,18 @@ const QuestionAnswer = ({ answers }) => {
       {/* 追加回答URLからのデータ表示 */}
       {additionalUrl && additionalUrl.value && (
         <AdditionalAnswersFetcher url={additionalUrl.value} />
+      )}
+
+      {/* 自由記述 */}
+      {profile && profile.trim() !== "" && (
+        <div style={{ padding: "var(--space-6) var(--space-8)" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--color-primary)", marginBottom: "1rem", borderBottom: "1px dashed var(--color-border)", paddingBottom: "0.5rem" }}>
+            自由記述
+          </h3>
+          <div style={{ fontSize: "1rem", lineHeight: "1.8", color: "var(--color-text)", whiteSpace: "pre-wrap" }}>
+            {profile}
+          </div>
+        </div>
       )}
     </div>
   );
