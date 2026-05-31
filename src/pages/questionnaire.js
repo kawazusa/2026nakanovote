@@ -127,12 +127,12 @@ const SectionTitle = ({ children }) => (
 const QuestionnairePage = () => {
   return (
     <Layout
-      title="アンケートについて"
+      title="アンケート＆意見交換について"
       description="なかの2026 候補者アンケートの実施概要、設問内容、有権者アンケートについて。"
     >
       <section className="hero" aria-labelledby="questionnaire-hero-title">
         <h1 className="visually-hidden" id="questionnaire-hero-title">
-          アンケートについて
+          アンケート＆意見交換について
         </h1>
       </section>
 
@@ -147,7 +147,7 @@ const QuestionnairePage = () => {
               color: "var(--color-text)",
               marginBottom: "0.5rem",
             }}>
-              🗳️ アンケートについて
+              🗳️ アンケート＆意見交換について
             </h1>
             <p style={{ color: "var(--color-text-muted)", lineHeight: "1.7" }}>
               子育て環境向上委員会@中野が実施した、2026年選挙 立候補予定者への公開アンケートの概要と設問内容です。
@@ -225,11 +225,11 @@ const QuestionnairePage = () => {
               {[
                 { src: "/images/meeting_sakai.jpg", alt: "酒井直人 氏との意見交換", name: "酒井直人 氏" },
                 { src: "/images/meeting_yoshida.jpg", alt: "吉田康一郎 氏との意見交換", name: "吉田康一郎 氏" },
-                { src: "/images/meeting_ishikura.jpg", alt: "石倉こうじろう 氏との意見交換", name: "石倉こうじろう 氏" },
-                { src: "/images/meeting_itoh.jpg", alt: "伊藤さゆり 氏との意見交換", name: "伊藤さゆり 氏" },
-                { src: "/images/meeting_ootsuka.jpg", alt: "大塚けいじゅ 氏との意見交換", name: "大塚けいじゅ 氏" },
+                { src: "/images/meeting_ishikura.jpg", alt: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）との意見交換", name: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）" },
                 { src: "/images/meeting_morikawa.jpg", alt: "森川岳大 氏との意見交換", name: "森川岳大 氏" },
-                { src: "/images/meeting_hashimoto.jpg", alt: "橋本正太郎 氏との意見交換", name: "橋本正太郎 氏" }
+                { src: "/images/meeting_ootsuka.jpg", alt: "大塚けいじゅ 氏との意見交換", name: "大塚けいじゅ 氏" },
+                { src: "/images/meeting_hashimoto.jpg", alt: "橋本正太郎 氏との意見交換", name: "橋本正太郎 氏" },
+                { src: "/images/meeting_itoh.jpg", alt: "伊藤さゆり 氏との意見交換", name: "伊藤さゆり 氏" }
               ].map((photo, index) => (
                 <div key={index} style={{
                   background: "var(--color-surface-2)",
@@ -455,7 +455,7 @@ const QuestionnairePage = () => {
 
 export const Head = () => (
   <PageHead
-    title="アンケートについて"
+    title="アンケート＆意見交換について"
     description="なかの2026 候補者アンケートの実施概要、設問内容、市民アンケートについて。子育て環境向上委員会@中野による2026年選挙の取り組み。"
   />
 );

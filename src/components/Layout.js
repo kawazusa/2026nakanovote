@@ -17,7 +17,7 @@ const Layout = ({ children, title, description }) => {
           <nav className="site-header__nav" aria-label="メインナビゲーション">
             <Link to="/" activeClassName="site-header__link--active">候補者一覧</Link>
             <Link to="/compare" activeClassName="site-header__link--active">質問ごとに比較する</Link>
-            <Link to="/questionnaire" activeClassName="site-header__link--active">アンケートについて</Link>
+            <Link to="/questionnaire" activeClassName="site-header__link--active">アンケート＆意見交換</Link>
             <Link to="/about" activeClassName="site-header__link--active">About Us</Link>
           </nav>
         </div>

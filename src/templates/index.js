@@ -38,7 +38,7 @@ const IndexPage = ({ pageContext }) => {
             こんにちは。子育て環境向上委員会@中野 です。<br />
             私たちは、子育て世代の声を区政や議員の皆様へ届ける活動などをしている団体で、主に子育て中の母親で構成され、超党派で活動しています。<br />
             当団体では、1人でも多くの有権者に区政へ関心を持っていただくこと、また子育て世代の有権者がどのようなことに関心を持っているのかを立候補予定者の皆様に知っていただくことを目的に、公開アンケートを実施しました。<br />
-            アンケートの詳細は<Link to="/questionnaire" style={{ color: 'var(--color-primary)', fontWeight: '600', textDecoration: 'underline' }}>アンケートについて</Link>をご覧ください。
+            アンケートの詳細は<Link to="/questionnaire" style={{ color: 'var(--color-primary)', fontWeight: '600', textDecoration: 'underline' }}>アンケート＆意見交換について</Link>をご覧ください。
           </p>
           <h2 style={{
             marginTop: '2.5rem',
