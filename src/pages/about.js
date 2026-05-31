@@ -41,7 +41,7 @@ const AboutPage = () => {
               <li><a href="https://script.google.com/macros/s/AKfycbxqWug6Hza9NWn3HW2TuCPWwntXG9oWdozsfA9Hab2exIgkIAfkR3AXV5b_-y990YJheg/exec" target="_blank" rel="noopener noreferrer">2025年 都議選 公開アンケート</a></li>
               <li><a href="https://refletsdansleau.github.io/" target="_blank" rel="noopener noreferrer">2024年 都議補選(中野選挙区)｜立候補予定者に聞いてみた！</a></li>
               <li><a href="https://refletsdansleau.github.io/2023/index.html" target="_blank" rel="noopener noreferrer">2023年 中野区 区議選 立候補者に聞いてみた！</a></li>
-              <li><a href="http://refletsdansleau.sakura.ne.jp/index.html" target="_blank" rel="noopener noreferrer">2022年 中野区選挙 立候補者に聞いてみた！</a></li>
+              <li><a href="https://refletsdansleau.sakura.ne.jp/kosodate2022/index.html" target="_blank" rel="noopener noreferrer">2022年 中野区選挙 立候補者に聞いてみた！</a></li>
               <li><a href="https://kosodatenakano.wixsite.com/kugisen" target="_blank" rel="noopener noreferrer">2019年 中野区議会議員選挙 公開アンケート</a></li>
               <li><a href="https://nakanokosodate.localinfo.jp/posts/4287641" target="_blank" rel="noopener noreferrer">2018年 中野区長選挙 公開アンケート</a></li>
             </ul>

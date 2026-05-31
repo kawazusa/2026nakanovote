@@ -441,7 +441,7 @@ const QuestionnairePage = () => {
                 { year: "2025年", label: "都議選 公開アンケート", href: "https://script.google.com/macros/s/AKfycbxqWug6Hza9NWn3HW2TuCPWwntXG9oWdozsfA9Hab2exIgkIAfkR3AXV5b_-y990YJheg/exec" },
                 { year: "2024年", label: "都議補選(中野選挙区)｜立候補予定者に聞いてみた！", href: "https://refletsdansleau.github.io/" },
                 { year: "2023年", label: "中野区 区議選 立候補者に聞いてみた！", href: "https://refletsdansleau.github.io/2023/index.html" },
-                { year: "2022年", label: "中野区選挙 立候補者に聞いてみた！", href: "http://refletsdansleau.sakura.ne.jp/index.html" },
+                { year: "2022年", label: "中野区選挙 立候補者に聞いてみた！", href: "https://refletsdansleau.sakura.ne.jp/kosodate2022/index.html" },
                 { year: "2019年", label: "中野区議会議員選挙 公開アンケート", href: "https://kosodatenakano.wixsite.com/kugisen" },
                 { year: "2018年", label: "中野区長選挙 公開アンケート", href: "https://nakanokosodate.localinfo.jp/posts/4287641" },
               ].map((item, i) => (
