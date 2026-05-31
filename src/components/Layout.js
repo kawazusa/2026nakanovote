@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, withPrefix } from "gatsby";
 import "../styles/global.css";
+import siteConfig from "../../site-config";
 
 const Layout = ({ children, title, description }) => {
   return (
@@ -35,11 +36,24 @@ const Layout = ({ children, title, description }) => {
 };
 
 // Gatsby 5 Head API: 各ページで呼び出す用のヘルパー
-export const PageHead = ({ title, description }) => {
+// imageUrl: og:image に使う画像URL。未指定時はデフォルト OGP 画像を使用
+// pageUrl:  og:url に使う正規URL。未指定時はサイトトップURLを使用
+export const PageHead = ({ title, description, imageUrl, pageUrl }) => {
   const siteTitle = "なかの2026 | 候補者アンケート";
   const siteDescription = "2026年選挙候補者へのアンケート結果を掲載しています。";
+  const siteUrl = siteConfig.siteUrl || "";
+  const pathPrefix = siteConfig.pathPrefix || "";
+
   const pageTitle = title ? `${title} | なかの2026` : siteTitle;
   const pageDescription = description || siteDescription;
+
+  // og:image: 引数で渡された画像 → デフォルト OGP 画像の順でフォールバック
+  // siteUrl（例: https://kawazusa.github.io/2026nakanovote）は pathPrefix を既に含む
+  const defaultOgImage = `${siteUrl}/images/ogp.png`;
+  const ogImage = imageUrl || defaultOgImage;
+
+  // og:url: 引数で渡された URL → サイトトップの順でフォールバック
+  const canonicalUrl = pageUrl || siteUrl;
 
   return (
     <>
@@ -48,9 +62,25 @@ export const PageHead = ({ title, description }) => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>{pageTitle}</title>
       <meta name="description" content={pageDescription} />
+
+      {/* Open Graph */}
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="なかの2026 | 候補者アンケート" />
+      <meta property="og:locale" content="ja_JP" />
+      <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
-      <meta property="og:type" content="website" />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      {/* Twitter / X Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={pageTitle} />
+      <meta name="twitter:description" content={pageDescription} />
+      <meta name="twitter:image" content={ogImage} />
+
+      <link rel="canonical" href={canonicalUrl} />
       <link rel="icon" href={withPrefix("/images/favicon.png")} />
     </>
   );

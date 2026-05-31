@@ -195,11 +195,32 @@ const CandidatePage = ({ pageContext }) => {
 
 export const Head = ({ pageContext }) => {
   const { candidate } = pageContext;
-  const { name, party, district } = candidate;
+  const { name, party, district, imageUrl, slug } = candidate;
+
+  const siteConfig = require("../../site-config");
+  const siteUrl = siteConfig.siteUrl || "";
+
+  // 候補者の正規 URL（slug が gatsby-node.js で設定されている前提）
+  // siteUrl（例: https://kawazusa.github.io/2026nakanovote）は pathPrefix を既に含む
+  const candidateUrl = slug
+    ? `${siteUrl}/candidates/${slug}/`
+    : siteUrl;
+
+  // og:image: 顔写真が外部 URL の場合はそのまま使用
+  // （http で始まらない場合は siteUrl 基準の絶対URLに変換）
+  let ogImage;
+  if (imageUrl) {
+    ogImage = imageUrl.startsWith("http")
+      ? imageUrl
+      : `${siteUrl}${imageUrl}`;
+  }
+
   return (
     <PageHead
       title={name}
       description={`${name}（${party || ""}${district ? " / " + district : ""}）のアンケート回答結果`}
+      imageUrl={ogImage}
+      pageUrl={candidateUrl}
     />
   );
 };
