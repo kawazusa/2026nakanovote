@@ -58,8 +58,8 @@ async function generate() {
   const textSvg = Buffer.from(`
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .title-large-1 { font-family: 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif; font-size: 62px; font-weight: 900; }
-    .title-large-2 { font-family: 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif; font-size: 48px; font-weight: 900; }
+    .title-large-1 { font-family: 'Noto Sans JP', 'Noto Sans CJK JP', 'Yu Gothic', sans-serif; font-size: 58px; font-weight: 800; }
+    .title-large-2 { font-family: 'Noto Sans JP', 'Noto Sans CJK JP', 'Yu Gothic', sans-serif; font-size: 48px; font-weight: 800; }
     .title-medium { font-family: 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif; font-size: 26px; font-weight: bold; fill: #0f172a; }
     .title-small { font-family: 'Yu Gothic', 'Meiryo', 'MS Gothic', sans-serif; font-size: 18px; fill: #4b5563; font-weight: bold; }
   </style>
