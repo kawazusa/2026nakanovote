@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kawazusa.github.io/2026nakanovote/sitemap-index.xml
