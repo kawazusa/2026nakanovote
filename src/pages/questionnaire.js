@@ -150,12 +150,41 @@ const QuestionnairePage = () => {
               🗳️ アンケート＆意見交換について
             </h1>
             <p style={{ color: "var(--color-text-muted)", lineHeight: "1.7" }}>
-              子育て環境向上委員会@中野が実施した、2026年選挙 立候補予定者への公開アンケートの概要と設問内容です。
+              子育て環境向上委員会@中野が実施した、2026年選挙 立候補予定者への公開アンケートの概要と設問内容、意見交換についてご報告いたします。
             </p>
           </div>
 
+          {/* ─── 目次 (Table of Contents) ─── */}
+          <div className="toc-container">
+            <h2 className="toc-title">
+              📋 目次
+            </h2>
+            <ul className="toc-list">
+              <li>
+                <a href="#request" className="toc-link">
+                  1. 立候補予定者への公開アンケートのお願い
+                </a>
+              </li>
+              <li>
+                <a href="#questions" className="toc-link">
+                  2. 候補者アンケート設問内容
+                </a>
+              </li>
+              <li>
+                <a href="#voters" className="toc-link">
+                  3. 区民（有権者）アンケートについて
+                </a>
+              </li>
+              <li>
+                <a href="#meetings" className="toc-link">
+                  4. 立候補予定者の皆様との意見交換
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* ─── 1. 候補者へのアンケートのお願い ─── */}
-          <div style={{
+          <div id="request" style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
             borderRadius: "var(--radius-xl)",
@@ -199,65 +228,8 @@ const QuestionnairePage = () => {
             </div>
           </div>
 
-          {/* ─── 意見交換会の報告 ─── */}
-          <div style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-xl)",
-            padding: "2rem",
-            marginBottom: "2.5rem",
-            boxShadow: "var(--shadow-sm)",
-          }}>
-            <SectionTitle>立候補予定者の皆様との意見交換</SectionTitle>
-            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
-              アンケートの実施にあたり、子育て環境向上委員会@中野のメンバーが、立候補予定者の皆様と直接お会いし、子育て政策や中野の未来について意見交換を行いました。
-            </p>
-            <p style={{ lineHeight: "1.8", marginBottom: "1.5rem" }}>
-              お忙しい中、貴重なお時間をいただき、熱心にお話を聞かせていただきましたことに心より感謝申し上げます。
-            </p>
-
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-              gap: "1.5rem",
-              marginTop: "1.5rem"
-            }}>
-              {[
-                { src: "/images/meeting_sakai.jpg", alt: "酒井直人 氏との意見交換", name: "酒井直人 氏" },
-                { src: "/images/meeting_yoshida.jpg", alt: "吉田康一郎 氏との意見交換", name: "吉田康一郎 氏" },
-                { src: "/images/meeting_ishikura.jpg", alt: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）との意見交換", name: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）" },
-                { src: "/images/meeting_morikawa.jpg", alt: "森川岳大 氏との意見交換", name: "森川岳大 氏" },
-                { src: "/images/meeting_ootsuka.jpg", alt: "大塚けいじゅ 氏との意見交換", name: "大塚けいじゅ 氏" },
-                { src: "/images/meeting_hashimoto.jpg", alt: "橋本正太郎 氏との意見交換", name: "橋本正太郎 氏" },
-                { src: "/images/meeting_itoh.jpg", alt: "伊藤さゆり 氏との意見交換", name: "伊藤さゆり 氏" }
-              ].map((photo, index) => (
-                <div key={index} style={{
-                  background: "var(--color-surface-2)",
-                  border: "1px solid var(--color-border)",
-                  borderRadius: "var(--radius-lg)",
-                  overflow: "hidden",
-                  boxShadow: "var(--shadow-sm)"
-                }}>
-                  <img
-                    src={withPrefix(photo.src)}
-                    alt={photo.alt}
-                    style={{
-                      width: "100%",
-                      height: "180px",
-                      objectFit: "cover",
-                      display: "block"
-                    }}
-                  />
-                  <div style={{ padding: "0.75rem 1rem", fontSize: "0.9rem", fontWeight: "700", textAlign: "center", color: "var(--color-text)" }}>
-                    {photo.name}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* ─── 2. 設問内容 ─── */}
-          <div style={{
+          <div id="questions" style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
             borderRadius: "var(--radius-xl)",
@@ -265,7 +237,7 @@ const QuestionnairePage = () => {
             marginBottom: "2.5rem",
             boxShadow: "var(--shadow-sm)",
           }}>
-            <SectionTitle>設問内容</SectionTitle>
+            <SectionTitle>候補者アンケート設問内容</SectionTitle>
 
             <div style={{ marginBottom: "1rem" }}>
               <h3 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--color-text-muted)", marginBottom: "0.75rem" }}>
@@ -348,7 +320,7 @@ const QuestionnairePage = () => {
           </div>
 
           {/* ─── 3. 有権者アンケートについて ─── */}
-          <div style={{
+          <div id="voters" style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
             borderRadius: "var(--radius-xl)",
@@ -395,8 +367,65 @@ const QuestionnairePage = () => {
             </div>
           </div>
 
-          {/* ─── 4. 過去のアンケート ─── */}
-          <div style={{
+          {/* ─── 意見交換会の報告 ─── */}
+          <div id="meetings" style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-xl)",
+            padding: "2rem",
+            marginBottom: "2.5rem",
+            boxShadow: "var(--shadow-sm)",
+          }}>
+            <SectionTitle>立候補予定者の皆様との意見交換</SectionTitle>
+            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
+              アンケートの実施にあたり、子育て環境向上委員会@中野のメンバーが、立候補予定者の皆様と直接お会いし、子育て政策や中野の未来について意見交換を行いました。
+            </p>
+            <p style={{ lineHeight: "1.8", marginBottom: "1.5rem" }}>
+              お忙しい中、貴重なお時間をいただき、熱心にお話を聞かせていただきましたことに心より感謝申し上げます。
+            </p>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+              gap: "1.5rem",
+              marginTop: "1.5rem"
+            }}>
+              {[
+                { src: "/images/meeting_sakai.jpg", alt: "酒井直人 氏との意見交換", name: "酒井直人 氏" },
+                { src: "/images/meeting_yoshida.jpg", alt: "吉田康一郎 氏との意見交換", name: "吉田康一郎 氏" },
+                { src: "/images/meeting_ishikura.jpg", alt: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）との意見交換", name: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）" },
+                { src: "/images/meeting_morikawa.jpg", alt: "森川岳大 氏との意見交換", name: "森川岳大 氏" },
+                { src: "/images/meeting_ootsuka.jpg", alt: "大塚けいじゅ 氏との意見交換", name: "大塚けいじゅ 氏" },
+                { src: "/images/meeting_hashimoto.jpg", alt: "橋本正太郎 氏との意見交換", name: "橋本正太郎 氏" },
+                { src: "/images/meeting_itoh.jpg", alt: "伊藤さゆり 氏との意見交換", name: "伊藤さゆり 氏" }
+              ].map((photo, index) => (
+                <div key={index} style={{
+                  background: "var(--color-surface-2)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "var(--radius-lg)",
+                  overflow: "hidden",
+                  boxShadow: "var(--shadow-sm)"
+                }}>
+                  <img
+                    src={withPrefix(photo.src)}
+                    alt={photo.alt}
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      objectFit: "cover",
+                      display: "block"
+                    }}
+                  />
+                  <div style={{ padding: "0.75rem 1rem", fontSize: "0.9rem", fontWeight: "700", textAlign: "center", color: "var(--color-text)" }}>
+                    {photo.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ─── 過去のアンケート ─── */}
+          <div id="past" style={{
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)",
             borderRadius: "var(--radius-xl)",
