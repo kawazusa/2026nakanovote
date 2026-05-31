@@ -42,7 +42,6 @@ export const PageHead = ({ title, description, imageUrl, pageUrl }) => {
   const siteTitle = "なかの2026 | 候補者アンケート";
   const siteDescription = "2026年選挙候補者へのアンケート結果を掲載しています。";
   const siteUrl = siteConfig.siteUrl || "";
-  const pathPrefix = siteConfig.pathPrefix || "";
 
   const pageTitle = title ? `${title} | なかの2026` : siteTitle;
   const pageDescription = description || siteDescription;

@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Papa from "papaparse";
-import { getAnswerClass } from "./CandidateCard";
 
-/** 回答値を日本語ラベルに変換 */
-function getAnswerLabel(value) {
-  if (!value || value.trim() === "") return "未回答";
-  return value;
-}
 
 /** 追加回答取得コンポーネント */
 const AdditionalAnswersFetcher = ({ url }) => {
@@ -119,8 +113,21 @@ const AdditionalAnswersFetcher = ({ url }) => {
             
             if (!questionText || !answerText || answerText.trim() === "") return null;
 
+            const isFirst = index === 0;
+            const filteredData = data.filter(r => {
+              const ks = Object.keys(r);
+              const qk = ks.find(k => k.includes("質問")) || ks[0];
+              const ak = ks.find(k => k.includes("回答")) || ks[1] || ks[ks.length - 1];
+              return r[qk] && r[ak] && r[ak].trim() !== "";
+            });
+            const isLast = index === data.indexOf(filteredData[filteredData.length - 1]);
+
             return (
-              <div key={index} style={{ marginBottom: "1.5rem", borderTop: "1px dashed var(--color-border)", paddingTop: "1.5rem" }}>
+              <div key={index} style={{
+                marginBottom: isLast ? 0 : "1.5rem",
+                borderTop: isFirst ? "none" : "1px dashed var(--color-border)",
+                paddingTop: isFirst ? 0 : "1.5rem",
+              }}>
                 <div style={{ marginBottom: "0.5rem", fontSize: "1.1rem", fontWeight: "bold", color: "var(--color-primary)" }}>
                   質問番号: {index + 1}
                 </div>
