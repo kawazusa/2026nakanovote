@@ -29,7 +29,13 @@ const Layout = ({ children, title, description }) => {
 
       <footer className="site-footer">
         <div className="container">
-          <p>© 2026 子育て環境向上委員会@中野</p>
+          <div className="site-footer__links">
+            <a href="https://nakanokosodate.localinfo.jp/" target="_blank" rel="noopener noreferrer">🌐 公式サイト</a>
+            <a href="mailto:kosodate.nakano@gmail.com">✉️ お問い合わせ</a>
+            <a href="https://twitter.com/kosodatenakano" target="_blank" rel="noopener noreferrer">𝕏 Twitter/X</a>
+            <a href="https://www.facebook.com/nakanokosodate/" target="_blank" rel="noopener noreferrer">📘 Facebook</a>
+          </div>
+          <p className="site-footer__copy">© 2026 子育て環境向上委員会@中野</p>
         </div>
       </footer>
     </>
@@ -60,6 +66,7 @@ export const PageHead = ({ title, description, imageUrl, pageUrl }) => {
       <html lang="ja" />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="theme-color" content="#1a56db" />
       <title>{pageTitle}</title>
       <meta name="description" content={pageDescription} />
 
@@ -73,15 +80,18 @@ export const PageHead = ({ title, description, imageUrl, pageUrl }) => {
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={pageTitle} />
 
       {/* Twitter / X Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={pageDescription} />
       <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image:alt" content={pageTitle} />
 
       <link rel="canonical" href={canonicalUrl} />
-      <link rel="icon" href={withPrefix("/images/favicon.png")} />
+      <link rel="icon" type="image/png" href={withPrefix("/images/favicon.png")} />
+      <link rel="apple-touch-icon" href={withPrefix("/images/favicon.png")} />
     </>
   );
 };
