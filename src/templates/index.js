@@ -8,6 +8,7 @@ const IndexPage = ({ pageContext }) => {
   const rawCandidates = pageContext?.candidates;
   // pageContext.candidates は通常変更されないためメモ化
   const candidates = useMemo(() => rawCandidates || [], [rawCandidates]);
+  const buildTimestamp = Date.now();
 
   // 選挙種類でグループ化
   const groupedCandidates = useMemo(() => {
@@ -98,7 +99,7 @@ const IndexPage = ({ pageContext }) => {
             <p className="share-section__label">このサイトをシェアする</p>
             <div className="share-section__buttons">
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('中野区長選挙2026 候補者アンケート結果を公開しています！子育て世代の声を区政へ。 #中野区 #中野区長選挙 #中野区議補欠選挙')}&url=${encodeURIComponent(siteConfig.siteUrl)}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('中野区長選挙2026 候補者アンケート結果を公開しています！子育て世代の声を区政へ。 #中野区 #中野区長選挙 #中野区議補欠選挙')}&url=${encodeURIComponent(`${siteConfig.siteUrl}/?v=${buildTimestamp}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="share-btn share-btn--x"
@@ -108,7 +109,7 @@ const IndexPage = ({ pageContext }) => {
                 X でシェア
               </a>
               <a
-                href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(siteConfig.siteUrl)}`}
+                href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`${siteConfig.siteUrl}/?v=${buildTimestamp}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="share-btn share-btn--line"
@@ -118,7 +119,7 @@ const IndexPage = ({ pageContext }) => {
                 LINE でシェア
               </a>
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteConfig.siteUrl)}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteConfig.siteUrl}/?v=${buildTimestamp}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="share-btn share-btn--facebook"

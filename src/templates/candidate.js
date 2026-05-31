@@ -25,6 +25,7 @@ const CandidatePage = ({ pageContext }) => {
   } = candidate;
 
   const initial = name ? name[0] : "?";
+  const buildTimestamp = Date.now();
   const q1Answer = answers?.find((a) => a.key === "Q1")?.value;
   const displayText = q1Answer || profile;
 
@@ -194,7 +195,7 @@ const CandidatePage = ({ pageContext }) => {
             <div className="share-section__buttons">
               {/* X (Twitter) */}
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${name}さんのアンケート回答を見てみよう！ #なかの2026 #中野区`)}&url=${encodeURIComponent(`${siteConfig.siteUrl}/candidates/${candidate.slug}/`)}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${name}さんのアンケート回答を見てみよう！ #中野区長選挙 #中野区議補欠選挙 #中野区`)}&url=${encodeURIComponent(`${siteConfig.siteUrl}/candidates/${candidate.slug}/?v=${buildTimestamp}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="share-btn share-btn--x"
@@ -205,7 +206,7 @@ const CandidatePage = ({ pageContext }) => {
               </a>
               {/* LINE */}
               <a
-                href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`${siteConfig.siteUrl}/candidates/${candidate.slug}/`)}`}
+                href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`${siteConfig.siteUrl}/candidates/${candidate.slug}/?v=${buildTimestamp}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="share-btn share-btn--line"
@@ -216,7 +217,7 @@ const CandidatePage = ({ pageContext }) => {
               </a>
               {/* Facebook */}
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteConfig.siteUrl}/candidates/${candidate.slug}/`)}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteConfig.siteUrl}/candidates/${candidate.slug}/?v=${buildTimestamp}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="share-btn share-btn--facebook"
