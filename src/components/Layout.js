@@ -45,12 +45,12 @@ const Layout = ({ children, title, description }) => {
 // Gatsby 5 Head API: 各ページで呼び出す用のヘルパー
 // imageUrl: og:image に使う画像URL。未指定時はデフォルト OGP 画像を使用
 // pageUrl:  og:url に使う正規URL。未指定時はサイトトップURLを使用
-export const PageHead = ({ title, description, imageUrl, pageUrl }) => {
+export const PageHead = ({ title, description, imageUrl, pageUrl, useExactTitle }) => {
   const siteTitle = "なかの2026 | 候補者アンケート";
   const siteDescription = "2026年選挙候補者へのアンケート結果を掲載しています。";
   const siteUrl = siteConfig.siteUrl || "";
 
-  const pageTitle = title ? `${title} | なかの2026` : siteTitle;
+  const pageTitle = useExactTitle && title ? title : (title ? `${title} | なかの2026` : siteTitle);
   const pageDescription = description || siteDescription;
 
   // og:image: 引数で渡された画像 → デフォルト OGP 画像の順でフォールバック
