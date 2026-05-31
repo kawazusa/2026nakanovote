@@ -58,6 +58,19 @@ export const PageHead = ({ title, description, imageUrl, pageUrl, useExactTitle 
   const defaultOgImage = `${siteUrl}/images/ogp.png`;
   const ogImage = imageUrl || defaultOgImage;
 
+  // ビルド（デプロイ）毎に一意のキャッシュバスターを付与してSNS側のキャッシュを強制更新する
+  const buildTimestamp = Date.now();
+  const getCacheBustedUrl = (url) => {
+    if (!url) return url;
+    // 自サイトの画像（絶対URLまたは相対パス）にのみキャッシュバスターを適用
+    if (url.startsWith(siteUrl) || url.startsWith("/") || !url.startsWith("http")) {
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}v=${buildTimestamp}`;
+    }
+    return url;
+  };
+  const ogImageWithBuster = getCacheBustedUrl(ogImage);
+
   // og:url: 引数で渡された URL → サイトトップの順でフォールバック
   const canonicalUrl = pageUrl || siteUrl;
 
@@ -77,7 +90,7 @@ export const PageHead = ({ title, description, imageUrl, pageUrl, useExactTitle 
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={ogImageWithBuster} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={pageTitle} />
@@ -86,7 +99,7 @@ export const PageHead = ({ title, description, imageUrl, pageUrl, useExactTitle 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={pageDescription} />
-      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image" content={ogImageWithBuster} />
       <meta name="twitter:image:alt" content={pageTitle} />
 
       <link rel="canonical" href={canonicalUrl} />
