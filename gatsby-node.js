@@ -117,6 +117,7 @@ function getSampleData() {
     {
       [columns.id]: "1",
       [columns.name]: "サンプル 太郎",
+      [columns.slug]: "sample-taro",
       [columns.electionType]: "区長選挙",
       [columns.district]: "中野区",
       [columns.party]: "サンプル党",
@@ -128,6 +129,7 @@ function getSampleData() {
     {
       [columns.id]: "2",
       [columns.name]: "サンプル 花子",
+      [columns.slug]: "sample-hanako",
       [columns.electionType]: "区長選挙",
       [columns.district]: "中野区",
       [columns.party]: "テスト党",
@@ -139,6 +141,7 @@ function getSampleData() {
     {
       [columns.id]: "3",
       [columns.name]: "見本 次郎",
+      [columns.slug]: "mihon-jiro",
       [columns.electionType]: "区議補欠選挙",
       [columns.district]: "中野区",
       [columns.party]: "サンプル党",
@@ -179,7 +182,8 @@ exports.createPages = async ({ actions }) => {
     .map((row, index) => {
       const id = row[columns.id]?.trim() || String(index + 1);
       const name = row[columns.name].trim();
-      const slugBase = toSlug(name);
+      const rawSlug = row[columns.slug]?.trim();
+      const slugBase = rawSlug ? toSlug(rawSlug) : toSlug(name);
       const slug = slugBase || `candidate-${id}`;
 
       const answers = questions.map((q) => ({

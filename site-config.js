@@ -32,6 +32,7 @@ module.exports = {
   columns: {
     id: "ID",
     name: "お名前",
+    slug: "スラッグ",
     electionType: "立候補予定なのはどちらですか？",
     district: "選挙区", // シートにない場合は空欄になります
     party: "所属政党・推薦",

@@ -12,6 +12,12 @@ const ComparePage = ({ pageContext }) => {
 
   const [activeQuestion, setActiveQuestion] = useState(compareQuestions[0]?.key);
 
+  // 質問キーから質問番号（例: 質問2. ）を動的に生成する関数
+  const getQuestionNumber = (key) => {
+    const match = key.match(/^Q(\d+)/);
+    return match ? `質問${match[1]}. ` : "";
+  };
+
   return (
     <Layout
       title="質問ごとに比較する"
@@ -25,7 +31,7 @@ const ComparePage = ({ pageContext }) => {
               className={`compare-tab ${activeQuestion === q.key ? "compare-tab--active" : ""}`}
               onClick={() => setActiveQuestion(q.key)}
             >
-              {q.label}
+              {getQuestionNumber(q.key)}{q.label}
             </button>
           ))}
         </div>
