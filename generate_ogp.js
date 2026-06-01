@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
-const photoWidth = 300;
+const photoWidth = 240;
 const photoHeight = 380;
 
 async function getSlicePhoto(imagePath) {
@@ -48,9 +48,10 @@ async function generate() {
   <rect width="1200" height="630" fill="url(#maskGrad)" />
 
   <!-- 縦の仕切り線（写真部分のみ） -->
-  <line x1="300" y1="0" x2="300" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
-  <line x1="600" y1="0" x2="600" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
-  <line x1="900" y1="0" x2="900" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
+  <line x1="240" y1="0" x2="240" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
+  <line x1="480" y1="0" x2="480" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
+  <line x1="720" y1="0" x2="720" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
+  <line x1="960" y1="0" x2="960" y2="380" stroke="#ffffff" stroke-width="2" stroke-opacity="0.4" />
 </svg>
 `);
 
@@ -87,6 +88,7 @@ async function generate() {
   const p2 = await getSlicePhoto("static/images/yoshida_sample.jpg");
   const p3 = await getSlicePhoto("static/images/ishikura.png");
   const p4 = await getSlicePhoto("static/images/morikawa.jpg");
+  const p5 = await getSlicePhoto("static/images/akiike.jpg");
 
   const targetDir = path.join("static", "images");
   if (!fs.existsSync(targetDir)) {
@@ -116,9 +118,10 @@ async function generate() {
   await sharp(baseImg)
     .composite([
       { input: p1, left: 0, top: 0 },
-      { input: p2, left: 300, top: 0 },
-      { input: p3, left: 600, top: 0 },
-      { input: p4, left: 900, top: 0 },
+      { input: p2, left: 240, top: 0 },
+      { input: p3, left: 480, top: 0 },
+      { input: p4, left: 720, top: 0 },
+      { input: p5, left: 960, top: 0 },
       { input: bgSvg, left: 0, top: 0 },
       { input: textSvg, left: 0, top: 0 }
     ])
