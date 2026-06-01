@@ -36,6 +36,12 @@ jobs:
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
 
+      - name: システムフォントフォルダの作成とフォントのインストール
+        run: |
+          mkdir -p ~/.local/share/fonts
+          cp static/fonts/*.ttf ~/.local/share/fonts/
+          fc-cache -f -v
+
       - name: Gatsby ビルド
         run: npm run build -- --prefix-paths
         env:

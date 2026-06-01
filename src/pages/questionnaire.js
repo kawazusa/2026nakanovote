@@ -1,0 +1,531 @@
+import React, { useState } from "react";
+import { withPrefix } from "gatsby";
+import Layout, { PageHead } from "../components/Layout";
+import siteConfig from "../../site-config";
+
+// アコーディオン用コンポーネント
+const Accordion = ({ title, children, defaultOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  return (
+    <div style={{
+      border: "1px solid var(--color-border)",
+      borderRadius: "var(--radius-lg)",
+      marginBottom: "1rem",
+      overflow: "hidden",
+    }}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          padding: "1rem 1.5rem",
+          background: isOpen ? "var(--color-primary-light)" : "var(--color-surface-2)",
+          border: "none",
+          cursor: "pointer",
+          textAlign: "left",
+          fontWeight: "700",
+          fontSize: "1rem",
+          color: "var(--color-primary-dark)",
+          transition: "background 0.2s",
+        }}
+      >
+        {title}
+        <span style={{
+          fontSize: "1rem",
+          color: "var(--color-primary)",
+          transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+          display: "inline-block",
+          transition: "transform 0.25s ease",
+          flexShrink: 0,
+          marginLeft: "1rem",
+        }}>▼</span>
+      </button>
+      <div style={{
+        overflow: "hidden",
+        maxHeight: isOpen ? "9999px" : "0",
+        transition: "max-height 0.3s ease",
+      }}>
+        <div style={{ padding: "1.5rem" }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// 設問カード
+const QuestionCard = ({ number, label, description, note }) => (
+  <div style={{
+    background: "var(--color-surface)",
+    border: "1px solid var(--color-border)",
+    borderRadius: "var(--radius-md)",
+    padding: "1.25rem 1.5rem",
+    marginBottom: "1rem",
+    borderLeft: "4px solid var(--color-primary)",
+  }}>
+    <div style={{
+      display: "flex",
+      alignItems: "baseline",
+      gap: "0.75rem",
+      marginBottom: description || note ? "0.75rem" : 0,
+    }}>
+      <span style={{
+        background: "var(--color-primary)",
+        color: "#fff",
+        fontWeight: "700",
+        fontSize: "0.8rem",
+        padding: "0.2rem 0.6rem",
+        borderRadius: "var(--radius-full)",
+        whiteSpace: "nowrap",
+        flexShrink: 0,
+      }}>
+        質問{number}
+      </span>
+      <span style={{ fontWeight: "600", color: "var(--color-text)", lineHeight: "1.6" }}>
+        {label}
+      </span>
+    </div>
+    {description && (
+      <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)", lineHeight: "1.7", margin: 0 }}>
+        {description}
+      </p>
+    )}
+    {note && (
+      <p style={{
+        fontSize: "0.85rem",
+        color: "var(--color-primary-dark)",
+        background: "var(--color-primary-light)",
+        padding: "0.5rem 0.75rem",
+        borderRadius: "var(--radius-sm)",
+        marginTop: "0.5rem",
+        marginBottom: 0,
+      }}>
+        📌 {note}
+      </p>
+    )}
+  </div>
+);
+
+const SectionTitle = ({ children }) => (
+  <h2 style={{
+    fontSize: "1.3rem",
+    fontWeight: "700",
+    color: "var(--color-primary-dark)",
+    background: "var(--color-primary-light)",
+    padding: "0.6rem 1.25rem",
+    borderLeft: "5px solid var(--color-primary)",
+    borderRadius: "0 var(--radius-md) var(--radius-md) 0",
+    marginBottom: "1.25rem",
+    marginTop: "2rem",
+  }}>
+    {children}
+  </h2>
+);
+
+const QuestionnairePage = () => {
+  const buildTimestamp = Date.now();
+  return (
+    <Layout
+      title="アンケート＆意見交換について"
+      description="なかの2026 候補者アンケートの実施概要、設問内容、有権者アンケートについて。"
+    >
+      <section className="hero" aria-labelledby="questionnaire-hero-title">
+        <h1 className="visually-hidden" id="questionnaire-hero-title">
+          アンケート＆意見交換について
+        </h1>
+      </section>
+
+      <section style={{ padding: "2rem 0 4rem" }}>
+        <div className="container" style={{ maxWidth: "820px", margin: "0 auto" }}>
+
+          {/* ページタイトル */}
+          <div style={{ marginBottom: "2rem" }}>
+            <h1 style={{
+              fontSize: "1.8rem",
+              fontWeight: "800",
+              color: "var(--color-text)",
+              marginBottom: "0.5rem",
+            }}>
+              🗳️ アンケート＆意見交換について
+            </h1>
+            <p style={{ color: "var(--color-text-muted)", lineHeight: "1.7" }}>
+              子育て環境向上委員会@中野が実施した、2026年選挙 立候補予定者への公開アンケートの概要と設問内容、意見交換についてご報告いたします。
+            </p>
+          </div>
+
+          {/* ─── 目次 (Table of Contents) ─── */}
+          <div className="toc-container">
+            <h2 className="toc-title">
+              📋 目次
+            </h2>
+            <ul className="toc-list">
+              <li>
+                <a href="#request" className="toc-link">
+                  1. 立候補予定者への公開アンケートのお願い
+                </a>
+              </li>
+              <li>
+                <a href="#questions" className="toc-link">
+                  2. 候補者アンケート設問内容
+                </a>
+              </li>
+              <li>
+                <a href="#voters" className="toc-link">
+                  3. 区民（有権者）アンケートについて
+                </a>
+              </li>
+              <li>
+                <a href="#meetings" className="toc-link">
+                  4. 立候補予定者の皆様との意見交換
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* ─── 1. 候補者へのアンケートのお願い ─── */}
+          <div id="request" style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-xl)",
+            padding: "2rem",
+            marginBottom: "2.5rem",
+            boxShadow: "var(--shadow-sm)",
+          }}>
+            <SectionTitle>立候補予定者への公開アンケートのお願い</SectionTitle>
+
+            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
+              こんにちは。<strong>子育て環境向上委員会@中野</strong>と申します。
+            </p>
+            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
+              私たちは、子育て世代の声を区政や議員の皆様へ届ける活動などをしている団体で、主に子育て中の母親で構成され、超党派で活動しています。
+            </p>
+            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
+              当団体では、1人でも多くの有権者に区政へ関心を持っていただくこと、また子育て世代の有権者がどのようなことに関心を持っているのかを立候補予定者の皆様に知っていただくことを目的に、公開アンケートを実施しました。
+            </p>
+            <p style={{ lineHeight: "1.8", marginBottom: "1.5rem" }}>
+              皆様からいただいたご回答はウェブサイトやSNSを活用して発信してまいります。ご多忙中のところ大変恐縮ですが、ぜひともご協力いただけますようよろしくお願い致します。
+            </p>
+
+            <div style={{
+              background: "var(--color-surface-2)",
+              borderRadius: "var(--radius-md)",
+              padding: "1rem 1.25rem",
+              fontSize: "0.9rem",
+              color: "var(--color-text-muted)",
+            }}>
+              <div>🌐 公式ウェブサイト：
+                <a href="https://nakanokosodate.localinfo.jp/" target="_blank" rel="noopener noreferrer"
+                  style={{ color: "var(--color-primary)" }}>
+                  https://nakanokosodate.localinfo.jp/
+                </a>
+              </div>
+              <div style={{ marginTop: "0.25rem" }}>✉️ お問い合わせ：
+                <a href="mailto:kosodate.nakano@gmail.com" style={{ color: "var(--color-primary)" }}>
+                  kosodate.nakano@gmail.com
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* ─── 2. 設問内容 ─── */}
+          <div id="questions" style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-xl)",
+            padding: "2rem",
+            marginBottom: "2.5rem",
+            boxShadow: "var(--shadow-sm)",
+          }}>
+            <SectionTitle>候補者アンケート設問内容</SectionTitle>
+
+            <div style={{ marginBottom: "1rem" }}>
+              <h3 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--color-text-muted)", marginBottom: "0.75rem" }}>
+                ■ 基本情報
+              </h3>
+              {[
+                { label: "お名前" },
+                { label: "立候補予定なのはどちらですか？（区長選挙 / 区議会議員選挙）" },
+                { label: "所属政党・推薦" },
+                { label: "顔写真の利用について（公式サイトの写真URLか、画像ファイルをメールにてご送付ください）" },
+                { label: "公式ウェブサイト・SNS各種URL" },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "0.5rem",
+                  padding: "0.5rem 0",
+                  borderBottom: "1px solid var(--color-border)",
+                  fontSize: "0.95rem",
+                  color: "var(--color-text)",
+                }}>
+                  <span style={{ color: "var(--color-primary)", fontWeight: "700", flexShrink: 0 }}>・</span>
+                  {item.label}
+                </div>
+              ))}
+            </div>
+
+            <h3 style={{ fontSize: "1rem", fontWeight: "700", color: "var(--color-text-muted)", margin: "1.5rem 0 0.75rem" }}>
+              ■ アンケート設問
+            </h3>
+
+            <QuestionCard
+              number="1"
+              label="子育て世代へアピールしたいことは何ですか？"
+              note="20文字以内でお願いします。トップページのカードに表示される一言です。"
+            />
+
+            <QuestionCard
+              number="2"
+              label="もし、今、自分が中野区の子どもだったら、お気に入りの場所はどこですか？"
+            />
+
+            <QuestionCard
+              number="3"
+              label="子育て支援で、何に一番力を入れたいですか？"
+              description="最近では「不登校」「こどもの居場所」「こども食堂」「子どもの意見表明」「プレーパーク」「児童館」「孤育て・ワンオペ育児」「保育園の配置基準改善」「学童クラブ」「小１の壁・小４の壁」「教員不足」「公園」「児童手当の所得制限」等の声がSNS等で挙がっています。"
+            />
+
+            <QuestionCard
+              number="4"
+              label="子育て世代の有権者からたくさんの質問が届いております。質問一覧の中からひとつお選びいただき回答ください。"
+              description="お答えいただける質問番号と、質問に対する回答をご記入ください。追加で複数の質問に回答いただける場合は、スプレッドシートをダウンロードの上、記入したものをメールにてご送付ください。"
+            />
+
+            <div style={{
+              background: "var(--color-surface-2)",
+              borderRadius: "var(--radius-md)",
+              padding: "1rem 1.25rem",
+              fontSize: "0.9rem",
+              color: "var(--color-text-muted)",
+              marginTop: "0.5rem",
+            }}>
+              <div style={{ marginBottom: "0.25rem" }}>📄 有権者からの質問一覧（Google Drive）：</div>
+              <a
+                href="https://drive.google.com/file/d/14Yj5awL8WFwpwRI7JzieoI6XFOWSdZXT/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--color-primary)", wordBreak: "break-all" }}
+              >
+                https://drive.google.com/file/d/14Yj5awL8WFwpwRI7JzieoI6XFOWSdZXT/view?usp=sharing
+              </a>
+            </div>
+
+            <div style={{ marginTop: "1rem" }}>
+              <QuestionCard
+                number="自由記述"
+                label="ご自身のウェブサイトのURLを記載いただいても構いません。好きなことをご自由にお書きください。"
+              />
+            </div>
+          </div>
+
+          {/* ─── 3. 有権者アンケートについて ─── */}
+          <div id="voters" style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-xl)",
+            padding: "2rem",
+            marginBottom: "2.5rem",
+            boxShadow: "var(--shadow-sm)",
+          }}>
+            <SectionTitle>区民（有権者）アンケートについて</SectionTitle>
+
+            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
+              上記の設問４「有権者からの質問」は、当団体が事前に子育て世代の有権者を対象に実施した区民アンケートにて募集した質問をもとに作成しています。
+            </p>
+            <p style={{ lineHeight: "1.8", marginBottom: "1.5rem" }}>
+              この機会に『子育てについて困っていること・聞いてみたいこと』を未来の議員さんに伝えてみませんか？本アンケート結果は立候補予定者の皆様にお渡しし、有権者の皆さんがどのようなことに関心を持っているかを伝える機会としています。
+            </p>
+
+            <Accordion title="📋 有権者アンケートの設問（参考）" defaultOpen={false}>
+              <div style={{ fontSize: "0.95rem", color: "var(--color-text)", lineHeight: "1.8" }}>
+                <div style={{ padding: "0.6rem 0", borderBottom: "1px dashed var(--color-border)" }}>
+                  <span style={{ color: "var(--color-primary)", fontWeight: "700" }}>質問１．</span>
+                  未来の中野区長＆区議さんに聞いてみたいことは何ですか？（300字以内）
+                </div>
+                <div style={{ padding: "0.6rem 0", borderBottom: "1px dashed var(--color-border)" }}>
+                  <span style={{ color: "var(--color-primary)", fontWeight: "700" }}>質問２．</span>
+                  あなたのお住まいはどこですか？
+                </div>
+                <div style={{ padding: "0.6rem 0" }}>
+                  <span style={{ color: "var(--color-primary)", fontWeight: "700" }}>質問３．</span>
+                  あなたの年齢を教えてください。
+                </div>
+              </div>
+            </Accordion>
+
+            <div style={{
+              background: "var(--color-primary-light)",
+              borderRadius: "var(--radius-md)",
+              padding: "1rem 1.25rem",
+              fontSize: "0.9rem",
+              color: "var(--color-primary-dark)",
+              marginTop: "1rem",
+              lineHeight: "1.7",
+            }}>
+              ※ お寄せいただいた質問は、当団体のウェブサイトで公開いたします。立候補予定者の方からの回答は個別の判断によるものであり、必ずしもすべての質問にご回答いただけるわけではありません。あらかじめご了承ください。
+            </div>
+          </div>
+
+          {/* ─── 意見交換会の報告 ─── */}
+          <div id="meetings" style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-xl)",
+            padding: "2rem",
+            marginBottom: "2.5rem",
+            boxShadow: "var(--shadow-sm)",
+          }}>
+            <SectionTitle>立候補予定者の皆様との意見交換</SectionTitle>
+            <p style={{ lineHeight: "1.8", marginBottom: "1rem" }}>
+              アンケートの実施にあたり、子育て環境向上委員会@中野のメンバーが、立候補予定者の皆様と直接お会いし、子育て政策や中野の未来について意見交換を行いました。
+            </p>
+            <p style={{ lineHeight: "1.8", marginBottom: "1.5rem" }}>
+              お忙しい中、貴重なお時間をいただき、熱心にお話を聞かせていただきましたことに心より感謝申し上げます。
+            </p>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+              gap: "1.5rem",
+              marginTop: "1.5rem"
+            }}>
+              {[
+                { src: "/images/meeting_sakai.jpg", alt: "酒井直人 氏との意見交換", name: "酒井直人 氏" },
+                { src: "/images/meeting_yoshida.jpg", alt: "吉田康一郎 氏との意見交換", name: "吉田康一郎 氏" },
+                { src: "/images/meeting_ishikura.jpg", alt: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）との意見交換", name: "石倉こうじろう 氏（一緒にお会いできた橋本さんと森川さん）" },
+                { src: "/images/meeting_morikawa.jpg", alt: "森川岳大 氏との意見交換", name: "森川岳大 氏" },
+                { src: "/images/meeting_ootsuka.jpg", alt: "大塚けいじゅ 氏との意見交換", name: "大塚けいじゅ 氏" },
+                { src: "/images/meeting_hashimoto.jpg", alt: "橋本正太郎 氏との意見交換", name: "橋本正太郎 氏" },
+                { src: "/images/meeting_itoh.jpg", alt: "伊藤さゆり 氏との意見交換", name: "伊藤さゆり 氏" }
+              ].map((photo, index) => (
+                <div key={index} style={{
+                  background: "var(--color-surface-2)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "var(--radius-lg)",
+                  overflow: "hidden",
+                  boxShadow: "var(--shadow-sm)"
+                }}>
+                  <img
+                    src={withPrefix(photo.src)}
+                    alt={photo.alt}
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      objectFit: "cover",
+                      display: "block"
+                    }}
+                  />
+                  <div style={{ padding: "0.75rem 1rem", fontSize: "0.9rem", fontWeight: "700", textAlign: "center", color: "var(--color-text)" }}>
+                    {photo.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ─── 過去のアンケート ─── */}
+          <div id="past" style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-xl)",
+            padding: "2rem",
+            boxShadow: "var(--shadow-sm)",
+          }}>
+            <SectionTitle>過去の公開アンケート実施例</SectionTitle>
+
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {[
+                { year: "2025年", label: "都議選 公開アンケート", href: "https://script.google.com/macros/s/AKfycbxqWug6Hza9NWn3HW2TuCPWwntXG9oWdozsfA9Hab2exIgkIAfkR3AXV5b_-y990YJheg/exec" },
+                { year: "2024年", label: "都議補選(中野選挙区)｜立候補予定者に聞いてみた！", href: "https://refletsdansleau.github.io/" },
+                { year: "2023年", label: "中野区 区議選 立候補者に聞いてみた！", href: "https://refletsdansleau.github.io/2023/index.html" },
+                { year: "2022年", label: "中野区選挙 立候補者に聞いてみた！", href: "https://refletsdansleau.sakura.ne.jp/kosodate2022/index.html" },
+                { year: "2019年", label: "中野区議会議員選挙 公開アンケート", href: "https://kosodatenakano.wixsite.com/kugisen" },
+                { year: "2018年", label: "中野区長選挙 公開アンケート", href: "https://nakanokosodate.localinfo.jp/posts/4287641" },
+              ].map((item, i) => (
+                <li key={i} style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "0.75rem",
+                  padding: "0.75rem 0",
+                  borderBottom: "1px solid var(--color-border)",
+                }}>
+                  <span style={{
+                    background: "var(--color-surface-2)",
+                    color: "var(--color-text-muted)",
+                    fontSize: "0.8rem",
+                    fontWeight: "700",
+                    padding: "0.2rem 0.5rem",
+                    borderRadius: "var(--radius-sm)",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                    marginTop: "0.1rem",
+                  }}>
+                    {item.year}
+                  </span>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--color-primary)", lineHeight: "1.6" }}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* SNS 共有 */}
+          <div className="share-section" style={{ marginTop: '2.5rem' }}>
+            <p className="share-section__label">このページをシェアする</p>
+            <div className="share-section__buttons">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('なかの2026 候補者アンケート＆意見交換について公開しています！ #中野区長選挙 #中野区議補欠選挙 #中野区')}&url=${encodeURIComponent(`${siteConfig.siteUrl}/questionnaire/?v=${buildTimestamp}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="share-btn share-btn--x"
+                aria-label="X (Twitter) でシェア"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zM17.083 20.012h1.833L7.084 4.126H5.117L17.083 20.012z" /></svg>
+                X でシェア
+              </a>
+              <a
+                href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`${siteConfig.siteUrl}/questionnaire/?v=${buildTimestamp}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="share-btn share-btn--line"
+                aria-label="LINE でシェア"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" /></svg>
+                LINE でシェア
+              </a>
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteConfig.siteUrl}/questionnaire/?v=${buildTimestamp}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="share-btn share-btn--facebook"
+                aria-label="Facebook でシェア"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                Facebook でシェア
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export const Head = () => (
+  <PageHead
+    title="アンケート＆意見交換について"
+    description="なかの2026 候補者アンケートの実施概要、設問内容、区民アンケートについて。子育て環境向上委員会@中野による2026年選挙の取り組み。"
+  />
+);
+
+export default QuestionnairePage;
