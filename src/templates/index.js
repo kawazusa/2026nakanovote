@@ -41,6 +41,54 @@ const IndexPage = ({ pageContext }) => {
             当団体では、1人でも多くの有権者に区政へ関心を持っていただくこと、また子育て世代の有権者がどのようなことに関心を持っているのかを立候補予定者の皆様に知っていただくことを目的に、公開アンケートを実施しました。<br />
             アンケートの詳細は<Link to="/questionnaire" style={{ color: 'var(--color-primary)', fontWeight: '600', textDecoration: 'underline' }}>アンケート＆意見交換について</Link>をご覧ください。
           </p>
+
+          {/* 姉妹サイトへの案内バナー */}
+          <div style={{
+            marginTop: '1.5rem',
+            padding: '1.25rem',
+            background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+            border: '1px solid #bfdbfe',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem'
+          }}>
+            <div>
+              <h4 style={{ margin: 0, color: '#1e40af', fontSize: '1.1rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                📊 姉妹サイト：期日前投票数ダッシュボード
+              </h4>
+              <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.9rem', color: '#1e3a8a', lineHeight: '1.5' }}>
+                日別の期日前投票数や投票状況をグラフで分かりやすく視覚化したダッシュボードを公開しました。ぜひ合わせてご覧ください。
+              </p>
+            </div>
+            <a
+              href="https://kawazusa.github.io/2026nakanovoting_rate/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                background: 'var(--color-primary)',
+                color: 'white',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                fontSize: '0.9rem',
+                boxShadow: '0 2px 4px rgba(26, 86, 219, 0.2)',
+                transition: 'all 0.2s',
+                textDecoration: 'none'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.background = 'var(--color-primary-dark)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'var(--color-primary)'}
+              onFocus={(e) => e.currentTarget.style.background = 'var(--color-primary-dark)'}
+              onBlur={(e) => e.currentTarget.style.background = 'var(--color-primary)'}
+            >
+              ダッシュボードを見る ➔
+            </a>
+          </div>
+
           <h2 style={{
             marginTop: '2.5rem',
             fontSize: '1.3rem',

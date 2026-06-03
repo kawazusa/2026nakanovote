@@ -19,6 +19,9 @@ const Layout = ({ children, title, description }) => {
             <Link to="/compare" activeClassName="site-header__link--active">質問ごとに比較する</Link>
             <Link to="/questionnaire" activeClassName="site-header__link--active">アンケート＆意見交換</Link>
             <Link to="/about" activeClassName="site-header__link--active">About Us</Link>
+            <a href="https://kawazusa.github.io/2026nakanovoting_rate/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "2px" }}>
+              期日前投票 📊
+            </a>
           </nav>
         </div>
       </header>
@@ -30,6 +33,7 @@ const Layout = ({ children, title, description }) => {
       <footer className="site-footer">
         <div className="container">
           <div className="site-footer__links">
+            <a href="https://kawazusa.github.io/2026nakanovoting_rate/" target="_blank" rel="noopener noreferrer">📊 期日前投票数ダッシュボード</a>
             <a href="https://nakanokosodate.localinfo.jp/" target="_blank" rel="noopener noreferrer">🌐 公式サイト</a>
             <a href="mailto:kosodate.nakano@gmail.com">✉️ お問い合わせ</a>
             <a href="https://twitter.com/kosodatenakano" target="_blank" rel="noopener noreferrer">𝕏 Twitter/X</a>
