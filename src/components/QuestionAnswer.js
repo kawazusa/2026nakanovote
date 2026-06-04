@@ -97,9 +97,8 @@ const AdditionalAnswersFetcher = ({ url }) => {
 
       {/* アコーディオン コンテンツ */}
       <div style={{
-        overflow: "hidden",
-        maxHeight: isOpen ? "9999px" : "0",
-        transition: "max-height 0.35s ease",
+        overflow: isOpen ? "visible" : "hidden",
+        maxHeight: isOpen ? "none" : "0",
       }}>
         <div style={{ padding: "0 var(--space-8) var(--space-6)" }}>
           {data.map((row, index) => {
